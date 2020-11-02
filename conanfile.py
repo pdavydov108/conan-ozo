@@ -6,14 +6,20 @@ class OzoConan(ConanFile):
     license = 'Yandex LLC'
     url = 'https://github.com/yandex/ozo'
     description = 'Conan package for yandex ozo library.'
-    settings = 'os', 'compiler', 'arch'
     generatos = 'cmake'
 
     def source(self):
-        tools.get(self.url)
+        git = tools.Git(folder='ozo')
+        git.clone(self.url, branch='master')
+        git.run('submodule update --init --recursive')
 
     def package(self):
-        self.copy('include/*', src='ozo')
+        self.copy('include/*.h', src='ozo')
+        self.copy('include/*.hpp', src='ozo')
+        self.copy('contrib/*.hpp', src='ozo')
+        self.copy('contrib/*.h', src='ozo')
+        self.copy('contrib/*.dat', src='ozo')
 
     def package_info(self):
-        self.cpp_info.libs = ['ozo']
+        self.cpp_info.includedirs = ['include/', 'contrib/resource_pool/include/']
+
