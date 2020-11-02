@@ -2,7 +2,7 @@ from conans import ConanFile, tools
 
 class OzoConan(ConanFile):
     name = "ozo"
-    version = '0.0.1'
+    version = '0.1.0'
     license = 'Yandex LLC'
     url = 'https://github.com/yandex/ozo'
     description = 'Conan package for yandex ozo library.'
